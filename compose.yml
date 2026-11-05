@@ -20,6 +20,7 @@ services:
       - ./certs:/certs:ro
       - ./dynamic:/dynamic
       - ./config.yaml:/config.yaml
+      - ./letsencrypt:/letsencrypts:ro
 
     command:
       - "--configFile=/config.yaml"

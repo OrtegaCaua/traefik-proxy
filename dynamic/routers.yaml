@@ -6,8 +6,9 @@ http:
         - websecure
       service: app-service
       middlewares:
-        - security-headers@file
-      tls: {}
+        - default-security-headers@file
+      tls:
+        certResolver: letsencrypt
 
   services:
     app-service:
