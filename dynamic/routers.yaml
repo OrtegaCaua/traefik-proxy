@@ -1,7 +1,7 @@
 http:
   routers:
     app:
-      rule: "Host(`agendamento.caieiras.sp.gov.br`)"
+      rule: "Host(`nome do servidor`)"
       entryPoints:
         - websecure
       service: app-service
@@ -14,5 +14,5 @@ http:
     app-service:
       loadBalancer:
         servers:
-          - url: "https://10.0.45.239:3000"
+          - url: "https://ipservidor:3000"
 
