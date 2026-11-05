@@ -1,0 +1,32 @@
+
+services:
+  traefik-Proxy-01:
+    image: traefik:v3.7
+    container_name: traefik-proxy-01
+    restart: unless-stopped
+
+    security_opt:
+      - no-new-privileges:true
+
+    networks:
+      - traefik-proxy-01
+
+    ports:
+      - "80:80"
+      - "443:443"
+
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./certs:/certs:ro
+      - ./dynamic:/dynamic
+      - ./config.yaml:/config.yaml
+
+    command:
+      - "--configFile=/config.yaml"
+
+    labels:
+      - "traefik.enable=false"
+
+networks:
+  traefik-proxy-01:
+    external: true

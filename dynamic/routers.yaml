@@ -1,0 +1,17 @@
+http:
+  routers:
+    app:
+      rule: "Host(`agendamento.caieiras.sp.gov.br`)"
+      entryPoints:
+        - websecure
+      service: app-service
+      middlewares:
+        - security-headers@file
+      tls: {}
+
+  services:
+    app-service:
+      loadBalancer:
+        servers:
+          - url: "https://10.0.45.239:3000"
+

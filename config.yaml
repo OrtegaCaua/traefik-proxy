@@ -1,0 +1,52 @@
+htttp:
+  middlewares:
+    default-security-headers:
+      headers:
+        browserXssFilter: true
+        content-type-nosniff: true
+        forceSTSHeader: true
+        frame-deny: true
+        referrerPolicy: "strict-origin-when-cross-origin"
+        stsIncludeSubdomains: true
+        stsPreload: true
+        stssSeconds: 31536000
+        content-security-policy: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-ancestors 'none'; form-action 'self'; base-uri 'self';"
+
+# EntryPoints
+entryPoints:
+  web:
+    address: ":80"
+    http:
+      redirections:
+        entryPoint:
+          to: websecure
+          scheme: https
+          permanent: true
+      aliasHeadersStrategy: delete
+
+  websecure:
+    address: ":443"
+    http:
+      tls: true
+      aliasHeadersStrategy: delete
+
+# Providers
+providers:
+  docker:
+    endpoint: "unix:///var/run/docker.sock"
+    exposedByDefault: false
+    network: traefik-proxy-01
+
+  file:
+    directory: /dynamic
+    watch: true
+
+
+# Observability
+log:
+  level: INFO
+
+accessLog: {}
+
+metrics:
+  prometheus: {}
