@@ -26,7 +26,7 @@ Inside the certs folder, generate a self-signed SSL certificate and private key:
 
 openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout privkey.pem -out pubcert.pem
 
-Configure sua pasta routers
+Configure seu arquivo routers.yaml
 
 START THE PROJECT
 
